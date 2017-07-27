@@ -1,0 +1,26 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="Assets/_scripts/collectToken.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/phpComm.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/rawLikes.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/warehouse.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/fbInit.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/compare.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/addLikes.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/game_engine.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/serializeInfo.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/gameState.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/objectDictionary.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/warehouseObj.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/textscrollermove.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/internMove.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/saveItems.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
