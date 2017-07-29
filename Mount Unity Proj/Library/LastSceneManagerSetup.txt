@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Scenes/internCubicle_ios.unity
-  isLoaded: 1
-  isActive: 1
