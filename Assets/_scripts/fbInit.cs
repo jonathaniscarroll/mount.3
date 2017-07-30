@@ -74,7 +74,7 @@ public class fbInit : MonoBehaviour {
 //			foreach (string perm in Facebook.Unity.AccessToken.CurrentAccessToken.Permissions) {
 //				Debug.Log(perm);
 //			}
-			retrievePosts ();
+
 			retrieveName ();
 		} else {
 			Debug.Log("User cancelled login");
@@ -98,6 +98,7 @@ public class fbInit : MonoBehaviour {
 		FBName = (Dictionary<string,object>)result.ResultDictionary;
 		userName = FBName ["first_name"].ToString();
 		GameEngine.userName = userName;
+		retrievePosts ();
 //		Debug.Log (userName);
 
 	}
@@ -128,7 +129,8 @@ public class fbInit : MonoBehaviour {
 			facebookDict.Add (postID, likeCount);
 
 		}
-		phpCommunication.downloadInfo (userName);
+//		phpCommunication.downloadInfo (userName);
+		StartCoroutine(phpCommunication.ServerConnection(userName,facebookDict));
 	}
 
 	private void postText(IGraphResult result){
@@ -141,7 +143,7 @@ public class fbInit : MonoBehaviour {
 			var post = keyVal as Dictionary<string,object>;
 			string message = post ["message"].ToString ();
 			string id = post ["id"].ToString ();
-			//Debug.Log (message + " " + id);
+			Debug.Log (message + " " + id);
 			postMessages.Add (id, message);
 		}
 
