@@ -134,7 +134,7 @@ public class fbInit : MonoBehaviour {
 	}
 
 	private void postText(IGraphResult result){
-		Debug.Log (result.RawResult);
+//		Debug.Log (result.RawResult);
 
 		Dictionary<string,object> postStuff = (Dictionary<string,object>)result.ResultDictionary;
 		var postMsgs = new List<object> ();

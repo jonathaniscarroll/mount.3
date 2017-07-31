@@ -9,6 +9,8 @@ public class compare : MonoBehaviour {
 	public objectDictionary objDick;
 	public static compare compareScript;
 
+	public static float likeTotal;
+
 	public static List<string> newPostIDs;
 
 	// Use this for initialization
@@ -32,21 +34,11 @@ public class compare : MonoBehaviour {
 
 
 		List<string> keys = new List<string> (facebookDick.Keys);
-//		List<string> keys = new List<string> (serverDick.Keys);
 
 		float oldLikes = 0;
 		int count = 0;
 		float newLikes = 0;
 
-//		foreach (string key in keys) {
-//			float serverLike = serverDick [key];
-//			if (facebookDick.ContainsKey (key)) {
-//				if (facebookDick [key] > serverLike) {
-//					serverDick [key] = facebookDick [key];
-//				}
-//			}
-//			if()
-//		}
 		foreach (string key in keys) {
 			
 			int fbval = (int)facebookDick [key];
@@ -71,13 +63,11 @@ public class compare : MonoBehaviour {
 			count++;
 
 		}
-		if (newPostIDs.Count != 0) {
-			//phpComm.
-		}
-		Debug.Log ("RAW LIEKS " + newLikes);
+
+//		Debug.Log ("RAW LIEKS " + newLikes);
 		rawLikes.generateLikeTokens (newLikes);
 		compareScript.GameEngine.setText ((int)oldLikes);
-
+		likeTotal = newLikes + oldLikes;
 		return serverDick;
 
 	}

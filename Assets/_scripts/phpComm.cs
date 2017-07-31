@@ -49,6 +49,10 @@ public class phpComm : MonoBehaviour
 			string[] splitString = serverResponse.text.Split (new string[] {"</next>"},StringSplitOptions.None);
 			int state = int.Parse(splitString[0]);
 			newDick = compare.CompareDicks (splitString[1]);
+//			foreach (string bit in splitString)
+//			{
+////				Debug.Log (bit);
+//			}
 		} else {
 			//new user
 			newDick = fbInit.facebookDict;
@@ -57,31 +61,31 @@ public class phpComm : MonoBehaviour
 
 		string stringDick = serializeInfo.Save (newDick);
 
-		yield return StartCoroutine (PostScores (name, stringDick));
+		yield return StartCoroutine (PostScores (name, stringDick, compare.likeTotal));
 
 		if (!string.IsNullOrEmpty(serverResponse.error)) {
 			print ("There was an error posting the high score: " + serverResponse.error);
 		} else {
-			Debug.Log ("It worked on this end");
+//			Debug.Log ("It worked on this end");
 		}
 
 		Facebook.postContent ();
 	}
 
 	// remember to use StartCoroutine when calling this function!
-	IEnumerator PostScores(string name, string posts)
+	IEnumerator PostScores(string name, string posts, float likes)
 	{
 		//This connects to a server side php script that will add the name and score to a MySQL DB.
 		// Supply it with a string representing the players name and the players score.
 		//Debug.Log("2." + name + " " + score);
 		string hash = GameEngine.Md5Sum(name + posts + secretKey);
 
-		string post_url = addScoreURL + "name=" + name + "&posts=" + posts + "&hash=" + hash;
+		string post_url = addScoreURL + "name=" + name + "&posts=" + posts + "&hash=" + hash + "&likes=" + likes;
 
 		// Post the URL to the site and create a download object to get the result.
 		WWW hs_post = new WWW(post_url);
 		yield return hs_post; // Wait until the download is done
-
+		Debug.Log("FROM ADDSCORE.PHP"+hs_post.text);
 		serverResponse = hs_post;
 
 //		Debug.Log (hs_post.text);
@@ -97,8 +101,6 @@ public class phpComm : MonoBehaviour
 		WWW grab = new WWW(post_url);
 		yield return grab;
 		serverResponse = grab;
-
-
 	}
 
 	public static void uploadMessages(List<string> newIds)
