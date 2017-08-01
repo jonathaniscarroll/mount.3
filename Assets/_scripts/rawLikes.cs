@@ -19,7 +19,7 @@ public class rawLikes : MonoBehaviour {
 
 	public static void generateLikeTokens(float newLikes){
 		float quantity = newLikes / 10;
-		Debug.Log ("LIKES: " + quantity);
+//		Debug.Log ("LIKES: " + quantity);
 		Vector3 pos;
 		int value = (int)newLikes;
 		GameObject thisToken;

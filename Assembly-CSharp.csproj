@@ -79,6 +79,7 @@
      <Compile Include="Assets\_scripts\textscrollermove.cs" />
      <Compile Include="Assets\_scripts\warehouse.cs" />
      <Compile Include="Assets\_scripts\warehouseObj.cs" />
+     <Compile Include="Assets\determineNewMessages.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\ConsoleBase.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\LogView.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\MenuBase.cs" />

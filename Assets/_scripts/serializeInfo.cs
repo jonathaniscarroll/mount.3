@@ -25,32 +25,21 @@ public class serializeInfo {
 		return json;
 	}
 
+	public static string SaveMessages(Dictionary<string,string> messages){
+		string data = "";
+		foreach (KeyValuePair<string, string>kvp in messages) {
+			data += kvp.Value + "</end>";
+		}
+		Debug.Log (data);
+		return data;
+	}
+
 	public static Dictionary<string,float> Load(string saved)
 		{
-//			Debug.Log ("we are trying to load this string as a dictionary: " + saved);
 			serverDict = new Dictionary<string,float>();
 			StatDictonary postLike = new StatDictonary ();
 			postLike = JsonUtility.FromJson<StatDictonary>(saved);
-//		string data = "";
-//		foreach (KeyValuePair<string,float> derp in postLike) {
-//			data += "POST: " + derp.Key + " LIKE: " + derp.Value;
-//		}
-//		Debug.Log (data);
 			serverDict = postLike.ToDictionary ();
-
-//		foreach(KeyValuePair<string,float> kvp in serverDict)
-//			{
-//				
-//				//Debug.Log ("KEy: " + kvp.Key + " VALUEL: " + kvp.Value);
-//			}
-//		for (int i = 0; i < serverDict.Count; i++) 
-//			{
-//				string dlPost = postLike.post [i];
-//				int dlLike = postLike.like [i];
-//				
-//				serverDict.Add (dlPost, dlLike);
-//				//Debug.Log ("POST: "+postLike.post[i] + " LIKES: " + postLike.like[i]);
-//			}
 		
 			return serverDict;
 		}

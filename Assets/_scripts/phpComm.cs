@@ -16,14 +16,10 @@ public class phpComm : MonoBehaviour
 	private string userName;
 
 	public static string download;
-//	private string[] posts;
-//	private int[] likes;
 
 	public int firstLike;
 
-	private Dictionary<string,float> newDick;
-
-	public static Dictionary<string,string> messages;
+	private Dictionary<string,float> postDick;
 
 	public static WWW serverResponse;
 
@@ -31,12 +27,14 @@ public class phpComm : MonoBehaviour
 	{
 		GameEngine = gameObject.GetComponent<game_engine> ();
 		Facebook = gameObject.GetComponent<fbInit> ();
-		newDick = new Dictionary<string,float> ();
+		postDick = new Dictionary<string,float> ();
 	}
 
 	public IEnumerator ServerConnection(string name, Dictionary<string, float> posts){
 
 		yield return StartCoroutine (GrabScores (name));
+		Facebook.postContent ();
+		yield return new WaitForSeconds (1);
 
 		if (!string.IsNullOrEmpty (serverResponse.error)) {
 			//log error from server, grabscores.php
@@ -44,48 +42,49 @@ public class phpComm : MonoBehaviour
 			yield break;
 		}
 
+		string messageString;
+
 		if (serverResponse.text.Length != 0) {
 			//returning user
-			string[] splitString = serverResponse.text.Split (new string[] {"</next>"},StringSplitOptions.None);
-			int state = int.Parse(splitString[0]);
-			newDick = compare.CompareDicks (splitString[1]);
-//			foreach (string bit in splitString)
-//			{
-////				Debug.Log (bit);
-//			}
+			Dictionary<string,string> server = serverData(serverResponse);
+			postDick = compare.CompareDicks (server["posts"]);
+			messageString = determineNewMessages.newMessages (Facebook.postMessages,server["messages"]); 
+//			Debug.Log (messageString);
 		} else {
 			//new user
-			newDick = fbInit.facebookDict;
-			addLikes.addDickLikes (newDick);
+			postDick = fbInit.facebookDict;
+			addLikes.addDickLikes (postDick);
+			messageString = serializeInfo.SaveMessages (Facebook.postMessages);
 		}
 
-		string stringDick = serializeInfo.Save (newDick);
+		string stringDick = serializeInfo.Save (postDick);
 
-		yield return StartCoroutine (PostScores (name, stringDick, compare.likeTotal));
+
+		yield return StartCoroutine (PostScores (name, stringDick, compare.likeTotal,messageString));
 
 		if (!string.IsNullOrEmpty(serverResponse.error)) {
 			print ("There was an error posting the high score: " + serverResponse.error);
 		} else {
-//			Debug.Log ("It worked on this end");
+			Debug.Log ("It worked on this end");
 		}
 
-		Facebook.postContent ();
+
 	}
 
 	// remember to use StartCoroutine when calling this function!
-	IEnumerator PostScores(string name, string posts, float likes)
+	IEnumerator PostScores(string name, string posts, float likes, string messages)
 	{
 		//This connects to a server side php script that will add the name and score to a MySQL DB.
 		// Supply it with a string representing the players name and the players score.
 		//Debug.Log("2." + name + " " + score);
 		string hash = GameEngine.Md5Sum(name + posts + secretKey);
 
-		string post_url = addScoreURL + "name=" + name + "&posts=" + posts + "&hash=" + hash + "&likes=" + likes;
+		string post_url = addScoreURL + "name=" + name + "&posts=" + posts + "&hash=" + hash + "&likes=" + likes + "&messages=" + messages;
 
 		// Post the URL to the site and create a download object to get the result.
 		WWW hs_post = new WWW(post_url);
 		yield return hs_post; // Wait until the download is done
-		Debug.Log("FROM ADDSCORE.PHP"+hs_post.text);
+//		Debug.Log("FROM ADDSCORE.PHP"+hs_post.text);
 		serverResponse = hs_post;
 
 //		Debug.Log (hs_post.text);
@@ -101,6 +100,23 @@ public class phpComm : MonoBehaviour
 		WWW grab = new WWW(post_url);
 		yield return grab;
 		serverResponse = grab;
+	}
+
+	public Dictionary<string,string> serverData(WWW server){
+		string[] splitString = server.text.Split (new string[] {"</next>"},StringSplitOptions.None);
+		Dictionary<string,string> dict = new Dictionary<string,string>();
+		int x = 0;
+
+		foreach(string split in splitString){
+
+			if(!string.IsNullOrEmpty(split)){
+			string[] dictString = split.Split (new string[] {"<and>"},StringSplitOptions.None);
+			dict.Add (dictString[0],dictString[1]);
+//				Debug.Log (dictString[0] + ": " + dictString[1]);
+		}
+
+		}
+		return dict;
 	}
 
 	public static void uploadMessages(List<string> newIds)

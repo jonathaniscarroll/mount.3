@@ -79,7 +79,8 @@ public class compare : MonoBehaviour {
 
 	public static Dictionary<string,string> compareMessages (Dictionary<string,string> fbDict){
 
-		Dictionary<string, string> servDict = phpComm.messages;
+		Dictionary<string, string> servDict = new Dictionary<string,string>();
+
 
 		List<string> keys = new List<string> (fbDict.Keys);
 

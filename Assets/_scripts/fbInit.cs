@@ -135,16 +135,22 @@ public class fbInit : MonoBehaviour {
 
 	private void postText(IGraphResult result){
 //		Debug.Log (result.RawResult);
-
+//		Debug.Log("getting messages");
 		Dictionary<string,object> postStuff = (Dictionary<string,object>)result.ResultDictionary;
 		var postMsgs = new List<object> ();
 		postMsgs = (List<object>)postStuff ["data"];
 		foreach (object keyVal in postMsgs) {
 			var post = keyVal as Dictionary<string,object>;
-			string message = post ["message"].ToString ();
-			string id = post ["id"].ToString ();
-			Debug.Log (message + " " + id);
-			postMessages.Add (id, message);
+			string message = "";
+			if (post.ContainsKey ("message")) {
+				message = post ["message"].ToString ();
+				string id = post ["id"].ToString ();
+				postMessages.Add (id, message);
+				Debug.Log (message + " " + id);
+			}
+
+
+
 		}
 
 	}
