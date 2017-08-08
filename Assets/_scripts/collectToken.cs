@@ -13,9 +13,9 @@ public class collectToken : MonoBehaviour {
 
 	void Start(){
 		GameEngine = GameObject.FindGameObjectWithTag("GameController").GetComponent<game_engine>();
-		Debug.Log (tokenVal);
+//		Debug.Log (tokenVal);
 		scoreText = GameObject.Find ("scoreText");
-		Debug.Log (scoreText);
+//		Debug.Log (scoreText);
 		die = false;
 		speed = 10;
 	}

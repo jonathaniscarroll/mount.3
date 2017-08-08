@@ -24,14 +24,12 @@ public class compare : MonoBehaviour {
 	}
 
 
-	public static Dictionary<string, float> CompareDicks (string server)
+	public static Dictionary<string, float> CompareDicks (Dictionary<string, float> serverDick)
 	{
-		Dictionary<string, float> serverDick = serializeInfo.Load (server);
 		Dictionary<string, float> facebookDick = fbInit.facebookDict;
 
 //		compare.listDict(serverDick,"server");
 //		compare.listDict (facebookDick,"facebook");
-
 
 		List<string> keys = new List<string> (facebookDick.Keys);
 
@@ -45,9 +43,9 @@ public class compare : MonoBehaviour {
 			if (serverDick.ContainsKey (key)) {
 				oldLikes += serverDick[key];
 //					Debug.Log(serverDick[key] +  " is different from " + facebookDick[key]);
-				if (serverDick[key] != fbval){
+				if ((int)serverDick[key] != fbval){
 					//these are the NEW likes
-					newLikes += fbval - serverDick[key];
+					newLikes += fbval - (int) serverDick[key];
 					Debug.Log ("New Likes: " + newLikes);
 				}
 				serverDick[key] = fbval;
@@ -80,7 +78,6 @@ public class compare : MonoBehaviour {
 	public static Dictionary<string,string> compareMessages (Dictionary<string,string> fbDict){
 
 		Dictionary<string, string> servDict = new Dictionary<string,string>();
-
 
 		List<string> keys = new List<string> (fbDict.Keys);
 

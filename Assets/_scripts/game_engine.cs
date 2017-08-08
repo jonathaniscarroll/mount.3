@@ -22,7 +22,7 @@ public class game_engine : MonoBehaviour {
 		likes = 0;
 		posts = 0;
 		setText(likes);
-		ObjectGeneration.populateCubicles (likes);
+//		ObjectGeneration.populateCubicles (likes);
 	}
 
 
@@ -36,7 +36,7 @@ public class game_engine : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			ObjectGeneration.populateCubicles (likes);
+//			ObjectGeneration.populateCubicles (likes);
 		}
 
 		if (Input.GetKeyDown (KeyCode.X)) {

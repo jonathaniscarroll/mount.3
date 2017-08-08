@@ -146,7 +146,7 @@ public class fbInit : MonoBehaviour {
 				message = post ["message"].ToString ();
 				string id = post ["id"].ToString ();
 				postMessages.Add (id, message);
-				Debug.Log (message + " " + id);
+//				Debug.Log (message + " " + id);
 			}
 
 

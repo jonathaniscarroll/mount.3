@@ -19,15 +19,12 @@ public class phpComm : MonoBehaviour
 
 	public int firstLike;
 
-	private Dictionary<string,float> postDick;
-
 	public static WWW serverResponse;
 
 	void Start()
 	{
 		GameEngine = gameObject.GetComponent<game_engine> ();
 		Facebook = gameObject.GetComponent<fbInit> ();
-		postDick = new Dictionary<string,float> ();
 	}
 
 	public IEnumerator ServerConnection(string name, Dictionary<string, float> posts){
@@ -43,11 +40,13 @@ public class phpComm : MonoBehaviour
 		}
 
 		string messageString;
+		Dictionary<string,float> postDick = new Dictionary<string,float> ();
 
 		if (serverResponse.text.Length != 0) {
 			//returning user
 			Dictionary<string,string> server = serverData(serverResponse);
-			postDick = compare.CompareDicks (server["posts"]);
+			Dictionary<string,float> serialized = serializeInfo.Load (server["posts"]);
+			postDick = compare.CompareDicks (serialized);
 			messageString = determineNewMessages.newMessages (Facebook.postMessages,server["messages"]); 
 //			Debug.Log (messageString);
 		} else {
@@ -80,7 +79,7 @@ public class phpComm : MonoBehaviour
 		string hash = GameEngine.Md5Sum(name + posts + secretKey);
 
 		string post_url = addScoreURL + "name=" + name + "&posts=" + posts + "&hash=" + hash + "&likes=" + likes + "&messages=" + messages;
-
+//		Debug.Log (post_url);
 		// Post the URL to the site and create a download object to get the result.
 		WWW hs_post = new WWW(post_url);
 		yield return hs_post; // Wait until the download is done

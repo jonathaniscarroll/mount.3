@@ -29,12 +29,12 @@ public class warehouse : MonoBehaviour {
 		for (int i = 0; i <= stock; i++) {
 			objPos += new Vector3(2.5f,0,0);
 			int x = Random.Range (0, cubObjs.Count);
-			currentObj = (GameObject)Instantiate (cubObjs[x],Vector3.zero,Quaternion.Euler (145, -45, 180),wareHouseObj.transform) as GameObject;
-			currentObj.transform.localPosition = objPos;
-			currentObj.GetComponent<Rigidbody> ().isKinematic = true;
-			currentObj.GetComponent<BoxCollider> ().isTrigger = true;
-			warehouseObj whobj = currentObj.AddComponent<warehouseObj> ();
-			whobj.cost = x * 10;
+//			currentObj = (GameObject)Instantiate (cubObjs[x],Vector3.zero,Quaternion.Euler (145, -45, 180),wareHouseObj.transform) as GameObject;
+//			currentObj.transform.localPosition = objPos;
+//			currentObj.GetComponent<Rigidbody> ().isKinematic = true;
+//			currentObj.GetComponent<BoxCollider> ().isTrigger = true;
+//			warehouseObj whobj = currentObj.AddComponent<warehouseObj> ();
+//			whobj.cost = x * 10;
 		}
 	}
 

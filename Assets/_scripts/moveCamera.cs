@@ -20,7 +20,7 @@ public class moveCamera : MonoBehaviour {
 	}
 
 	public void moveCam(){
-		float speed = transitionSpeed * Time.deltaTime;
+//		float speed = transitionSpeed * Time.deltaTime;
 		Vector3 cam = transform.position;
 		Debug.Log (cam);
 		Vector3 warehousePos;

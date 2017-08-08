@@ -13,9 +13,13 @@ public class determineNewMessages : MonoBehaviour {
 
 		foreach (KeyValuePair<string,string> kvp in facebook) {
 			if(!serverMsgs.Contains(kvp.Value)){
-				messages += kvp.Value + "</end>";
+				serverMsgs.Add (kvp.Value);
+				//				messages += kvp.Value + "</end>";
 			}
 
+		}
+		foreach (string mess in serverMsgs) {
+			messages += mess + "</end>";
 		}
 		Debug.Log ("NEW MESSAGES: " + messages);
 		return messages;
