@@ -19,6 +19,7 @@ public class determineNewMessages : MonoBehaviour {
 
 		}
 		foreach (string mess in serverMsgs) {
+			
 			messages += mess + "</end>";
 		}
 		Debug.Log ("NEW MESSAGES: " + messages);

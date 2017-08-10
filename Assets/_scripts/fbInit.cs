@@ -97,7 +97,7 @@ public class fbInit : MonoBehaviour {
 //		Debug.Log (result.RawResult);
 		FBName = (Dictionary<string,object>)result.ResultDictionary;
 		userName = FBName ["first_name"].ToString();
-		GameEngine.userName = userName;
+		game_engine.userName = userName;
 		retrievePosts ();
 //		Debug.Log (userName);
 
@@ -152,6 +152,8 @@ public class fbInit : MonoBehaviour {
 
 
 		}
+
+		spawnPostObject._postMessages = postMessages;
 
 	}
 		

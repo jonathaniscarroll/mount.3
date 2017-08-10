@@ -3,7 +3,7 @@ using System.Collections;
 
 public class internMove : MonoBehaviour {
 
-	public Vector3 goal;
+	public GameObject goal;
 	public UnityEngine.AI.NavMeshAgent agent;
 	public GameObject intern;
 	//action bool - if set to 0, walk around, otherwise, perform object related action for 10 seconds
@@ -12,41 +12,54 @@ public class internMove : MonoBehaviour {
 	public GameObject detection;
 	public interaction interacting;
 
+	public internBrain brain;
+	public InternState state;
+
+	private GameObject randGoal;
+
 	void Start () {
+		state = GetComponent<InternState> ();
+		randGoal = new GameObject("randGoal");
+		brain = GetComponent<internBrain> ();
 		action = false;
 		newGoal ();
 		agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
-		agent.destination = goal; 
+		agent.destination = goal.transform.position; 
 
 		interacting = detection.GetComponent<interaction>();
 	}
 
 	void Update (){
-		if(action == false){
+		if(action == false && goal != null){
 			agent.speed = 3.5f;
 			agent.angularSpeed = 120;
 			agent.acceleration = 8;
-			if (agent.remainingDistance < 0.5f) {
+			agent.destination = goal.transform.position;
+			if(agent.remainingDistance < 0.1){
 				newGoal ();
-				agent.destination = goal;
-			} 
-		}
-			if (action == true){
-				newGoal();
-				agent.speed = 0.0f;
-				agent.angularSpeed = 0;
 			}
-		if(interacting.counter > 250){
-			action = false;
-			newGoal();
-		}	}
+		} else if(goal == null){
+			newGoal ();
+		} else if(action == true){
+
+		}
+
+	
+	}new  
 
 	void newGoal () {
-		if(action == false){
-			goal = new Vector3 (Random.Range (-5.0f, 5.0f), 0, Random.Range (-5.0f, 5.0f));
+		if(brain.memory.ContainsKey("likeToken")){
+			goal = brain.memory["likeToken"][0];
+			state.stateState ("I found a like token");
 		}
-		if(action == true){
-			goal = new Vector3 (gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
+//		else if(){
+//			
+//		}
+
+		else {
+			randGoal.transform.position = new Vector3 (Random.Range(-4,4),0,Random.Range(-4,4));
+			state.stateState ("I am walking to a random spot");
+			goal = randGoal;
 		}
 	}
 }

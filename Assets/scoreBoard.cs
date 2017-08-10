@@ -46,11 +46,21 @@ public class scoreBoard : MonoBehaviour {
 			foreach (string split in splitString) {
 				string[] newSplit = split.Split (new string[] { "</and>" }, StringSplitOptions.None);
 //				scores.Add (newSplit[0],newSplit[1]);
-				lbText += newSplit[0] + ": " + newSplit[1];
+				Debug.Log(split);
+				if(!string.IsNullOrEmpty(split)){
+					lbText += newSplit[0] + ": " + newSplit[1];
+				}
 				Debug.Log(lbText);
 			}
-			scrollPanel.enabled = true;
+			scrollPanel.gameObject.SetActive(true);
 			scrollPanel.content.GetComponent<Text> ().text = lbText;
+		}
+	}
+
+	void Update(){
+		if(scrollPanel.gameObject.activeInHierarchy == true){
+			if (Input.GetMouseButtonDown (0))
+				scrollPanel.gameObject.SetActive (false);
 		}
 	}
 }

@@ -11,6 +11,22 @@ public class collectToken : MonoBehaviour {
 	private GameObject scoreText;
 	private bool die;
 
+	void OnTriggerEnter(Collider other){
+		if (other.gameObject == scoreText) {
+			game_engine.likes += tokenVal;
+			game_engine.setText (game_engine.likes);
+			Destroy (gameObject);
+			Debug.Log ("Gathered Like");
+		}
+		GameObject intern;
+		if(other.gameObject.name == "intern"){
+			intern = other.gameObject;
+			showCount (tokenVal);
+			intern.GetComponent<InternState> ().stateState ("collecting a like token!");
+			intern.GetComponent<internMove> ().action = true;
+		}
+	}
+
 	void Start(){
 		GameEngine = GameObject.FindGameObjectWithTag("GameController").GetComponent<game_engine>();
 //		Debug.Log (tokenVal);
@@ -24,15 +40,7 @@ public class collectToken : MonoBehaviour {
 		
 		if(Input.GetMouseButtonDown(0)){
 			showCount(tokenVal);
-			GetComponent<Rigidbody> ().isKinematic = true;
-			die = true;
-		}
-	}
 
-	void OnTriggerEnter(Collider other){
-		if (other.gameObject == scoreText) {
-			GameEngine.setText (GameEngine.likes + tokenVal);
-			Destroy (gameObject);
 		}
 	}
 
@@ -42,25 +50,15 @@ public class collectToken : MonoBehaviour {
 		}
 	}
 
-//	IEnumerator showCount(int val){
-//		GameObject count = (GameObject)Instantiate (text, transform.position, Quaternion.EulerAngles (Vector3 (60, -45, 0)));
-//		count.transform.Translate (Vector3.up * Time.deltaTime);
-//
-//	}
+	
 
 	void showCount(int val){
 		GameObject count = (GameObject)Instantiate (text, transform.position, Quaternion.Euler(60, -45, 0),gameObject.transform) as GameObject;
 		TextMesh t = count.GetComponent<TextMesh> ();
 		Color c = t.color;
 		t.text = val.ToString();
-
-//		count.transform.Translate (Vector3.up * Time.deltaTime);
-//		for (int i = 0; i < 100; i++) {
-//			c.a -= 0.01f;
-//		}
-//		if (c.a == 0) {
-//			Destroy(count);
-//		}
+		GetComponent<Rigidbody> ().isKinematic = true;
+		die = true;
 	}
 
 

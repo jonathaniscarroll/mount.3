@@ -36,4 +36,13 @@ public class rawLikes : MonoBehaviour {
 			}
 		}
 	}
+
+	public static void generateSingleToken(int likes){
+		GameObject thisToken;
+		Vector3 pos = new Vector3(Random.Range(-2f,2f),10,Random.Range(-2f,2f));
+		thisToken = (GameObject)Instantiate (token, pos,  Quaternion.Euler (145, -45, 180));
+		thisToken.GetComponent<collectToken> ().tokenVal = likes;
+	}
+
+
 }

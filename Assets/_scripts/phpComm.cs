@@ -40,32 +40,39 @@ public class phpComm : MonoBehaviour
 		}
 
 		string messageString;
-		Dictionary<string,float> postDick = new Dictionary<string,float> ();
+		Dictionary<string,float> postsWithNewLikes = new Dictionary<string,float> ();
 
 		if (serverResponse.text.Length != 0) {
 			//returning user
 			Dictionary<string,string> server = serverData(serverResponse);
 			Dictionary<string,float> serialized = serializeInfo.Load (server["posts"]);
-			postDick = compare.CompareDicks (serialized);
-			messageString = determineNewMessages.newMessages (Facebook.postMessages,server["messages"]); 
-//			Debug.Log (messageString);
+			game_engine.serverDictionary = serialized;
+			game_engine.likes = int.Parse(server ["score"]);
+			game_engine.setText (game_engine.likes);
+			postsWithNewLikes = compare.CompareDicks (serialized);
+//			messageString = determineNewMessages.newMessages (Facebook.postMessages,server["messages"]); 
 		} else {
 			//new user
-			postDick = fbInit.facebookDict;
-			addLikes.addDickLikes (postDick);
-			messageString = serializeInfo.SaveMessages (Facebook.postMessages);
+			postsWithNewLikes = fbInit.facebookDict;
+//			addLikes.addDickLikes (postsWithNewLikes);
+//			messageString = serializeInfo.SaveMessages (Facebook.postMessages);
 		}
 
-		string stringDick = serializeInfo.Save (postDick);
+		spawnPostObject._newLikePosts = postsWithNewLikes;
+		spawnPostObject.nextPost ();
+
+//		string stringDick = serializeInfo.Save (postsWithNewLikes);
 
 
-		yield return StartCoroutine (PostScores (name, stringDick, compare.likeTotal,messageString));
 
-		if (!string.IsNullOrEmpty(serverResponse.error)) {
-			print ("There was an error posting the high score: " + serverResponse.error);
-		} else {
-			Debug.Log ("It worked on this end");
-		}
+
+//		yield return StartCoroutine (PostScores (name, stringDick, compare.likeTotal,messageString));
+//
+//		if (!string.IsNullOrEmpty(serverResponse.error)) {
+//			print ("There was an error posting the high score: " + serverResponse.error);
+//		} else {
+//			Debug.Log ("It worked on this end");
+//		}
 
 
 	}
