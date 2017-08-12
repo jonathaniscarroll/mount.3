@@ -1,0 +1,28 @@
+Notes
+
+08/04
+Writing this on an airplane to GrandePrairie.
+The past week of Mount work spent improving code architecture.
+Now to chisel out something playable
+Mount MVP: main, possibly only, game mechanic is likes. focus on that
+Build leaderboard to present the user with how many likes they have, versus how many others have.
+Warehouse is not necessary at the moment, weighted generator of cubicles objects
+
+08/09
+Writing this on an airplane to Toronto.
+plan: live in sailboat by next summer.
+
+Mount MVP: just the point collection as it is now, but with interactions with the intern.
+Intern starts off by just paroting your posts, but you can upload upgrade them with texts to expand their vocabulary.
+Upload upgrades come with different like point milestones.
+Also, can ask a question once at certain milestones (every 100 likes?). Questions are actual emails to me.
+
+Intern processes one post at a time, which takes longer depending on how many likes the post has. A post drops down, and if that post gets new likes the next time you sign on, the same post will drop down again with new likes associated to it.
+
+Objects can aid the intern in processing likes. Initially the intern needs to hand process posts. Certain objects can help them hand process quicker, or hand process multiple posts at the same time. Machines help to automate the processing of posts. if an intern has multiple machines (faxer, laptop, desktop), they can process multiple posts at once.
+
+The fake business idea of mount: that it will create the content you want, by combining the raw ingredients of the right source content with the text of your posts.
+Eventually, a premium mount exists to manage your personal brand completely.
+
+
+
